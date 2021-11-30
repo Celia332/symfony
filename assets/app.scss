@@ -1,12 +1,5 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
 
 $primary: #705a7d;
-$secondary : #1d061f;
+$secondary :red;
 
-body {
-  background-color: $secondary;
-}
-
-#navbarNav {
-  background-color : $primary;
-}
+@import "../node_modules/bootstrap/scss/bootstrap";
