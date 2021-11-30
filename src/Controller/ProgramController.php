@@ -23,4 +23,6 @@ class ProgramController extends AbstractController
 
             'website' => 'Wild Séries',]);
     }
+
 };
+
