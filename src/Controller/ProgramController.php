@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Episode;
 use App\Entity\Season;
 use App\Entity\Program;
@@ -36,51 +37,46 @@ class ProgramController extends AbstractController
      * @Route("/show/{id<^[0-9]+$>}", name="show")
      */
 
-    public function show(int $id): Response
+    public function show(Program $program): Response
     {
-        $program = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findOneBy(['id' => $id]);
-
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : ' . $id . ' found in program\'s table.'
-            );
-        }
-
         $seasons = $this->getDoctrine()
             ->getRepository(Season::class)
             ->findBy(['program' => $program]);
 
 
+        return $this->render('program/show.html.twig', ['program' => $program, 'seasons'=>$seasons]);
+    }
 
-        return $this->render('program/show.html.twig', [
+    /**
+     * @Route("/{program}/season/{season}" , name ="season_show")
+     */
+
+    public function showSeason(Program $program, Season $season)
+    {
+        $episodes = $this->getDoctrine()
+            ->getRepository(Episode::class)
+            ->findBy(['season'=> $season]);
+
+        return $this->render('/program/season_show.html.twig', [
             'program' => $program,
-            'seasons'  => $seasons,
+            'season'  => $season,
+            'episodes' => $episodes
         ]);
     }
 
     /**
-     * @Route("/{program}/seasons/{season}" , name ="season_show")
+     * @Route("{program}/season/{season}/episode/{episode}", name="episode_show")
+     *
      */
-
-    public function showSeason(Program $program, Season $season, EntityManagerInterface $entityManager)
+    public function showEpisode(Program $program,Season $season,Episode $episode)
     {
-
-
-        $episodes = $entityManager
-            ->getRepository(Episode::class)
-            ->findBy(['season' => $season]);
-
-
-        return $this->render('program/season_show.html.twig', [
-            'program' => $program,
-            'season'  => $season,
-            'episodes' =>$episodes,
-
+        return $this->render('/program/episode_show.html.twig', [
+            'program'=>$program,
+            'season'=>$season,
+            'episode'=>$episode,
         ]);
-
     }
-};
+
+}
 
 

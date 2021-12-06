@@ -8,19 +8,24 @@
 
     <div class="media">
         <div class="media-body">
-            Season {{ season.number }}
-            <ul>
 
+            Season {{ season.number }}
+
+            <ul>
             {% for episode in episodes %}
                 <li>
-                {{ episode.number }} - {{ episode.title }}  {{ episode.summary }}
-                </li>
-            {% endfor %}
+                    {{ episode.number }}
 
+
+                    <a href="{{ path('program_episode_show', {program :program.id, season :season.id, episode :episode.id}) }}"> {{ episode.title }}</a>
+                </li>
+
+
+            {% endfor %}
             </ul>
+
         </div>
     </div>
-
 
     <a href="{{ path('program_index') }}">
         Retour à la liste des programmes
