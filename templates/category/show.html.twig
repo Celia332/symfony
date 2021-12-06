@@ -4,22 +4,20 @@
 
     <h1>  CATEGORIE :{{category.name}}</h1>
 
-
-
     {% for program in programs %}
         <div>
             <h2>{{ loop.index }} / {{ program.title }}</h2>
             <p>{{ program.summary }}</p>
             <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche de la série</a>
-
         </div>
+
     {% else %}
-        Aucune série trouvée.
+
+        Aucune série trouvée
 
     {% endfor %}
 
     <a href="{{ path('category_index') }}">
-
         Retour à la catégorie
     </a>
 
