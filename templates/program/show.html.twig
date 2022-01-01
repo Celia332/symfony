@@ -24,8 +24,16 @@
                     </li>
                 </ul>
         </div>
-
     </div>
+
+    <strong>Acteurs :</strong>
+    <ul>
+        {% for actor in program.actors %}
+            <li>{{ actor.name }} </li>
+        {% else %}
+            <li>Aucun acteur pour cette série</li>
+        {% endfor %}
+    </ul>
 
     <a href="{{ path('season_new') }}">
         Ajouter une nouvelle saison
